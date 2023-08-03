@@ -1,6 +1,6 @@
 import pandas as pd
 
-from dtypes import percent, decimal, integer, money, formatCol
+from .dtypes import percent, decimal, integer, money, formatCol
 
 class hwTable:
     def __init__(self, filePath, source=''):
@@ -87,8 +87,3 @@ class hwTable:
             return
         return self.tableStyle + '\n' + table
 
-# fp = "C:\\Users\\WilliamRobinson\\OneDrive - HW Publishing LLC\\Documents\\TopPurchaseMortgageLendersQ1.xlsx"
-# hwTable(fp).xlsxHtml({'Q1 Volume':('money', 3),
-#                             'Market Share':('percent', 1),
-#                             'Distribution':('percent', 1)},
-#                             writePath='example.html')
