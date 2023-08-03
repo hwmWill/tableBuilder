@@ -3,8 +3,8 @@ import pandas as pd
 from .dtypes import percent, decimal, integer, money, formatCol
 
 class hwTable:
-    def __init__(self, filePath, source=''):
-        self.filePath = filePath
+    def __init__(self, data, source=''):
+        self.data = data
         self.source = f'Source: {source}'
         self.dtypes = {'percent':percent,
                         'decimal':decimal,
@@ -54,8 +54,11 @@ class hwTable:
 </style>
 '''
 
-    def xlsxHtml(self, datatypes={}, writePath=None):
-        df = pd.read_excel(self.filePath)
+    def dataHtml(self, datatypes={}, writePath=None):
+        if isinstance(self.data, str):
+            df = pd.read_excel(self.data)
+        else:
+            df = self.data
         if len(datatypes) > 0:
             for col, params in datatypes.items():
                 try:

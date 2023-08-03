@@ -6,7 +6,7 @@ import pandas as pd
 class DtypesTests(unittest.TestCase):
     
     def test_from_excel(self):
-        self.assertEqual(hwTable('tests/Example.xlsx').xlsxHtml(datatypes=
+        self.assertEqual(hwTable('tests/Example.xlsx').dataHtml(datatypes=
                                 {'Money':('money'),
                                 'Volume':('integer'),
                                 'Percent':('percent', 2),
