@@ -14,6 +14,7 @@ class hwTable:
 <style>
   table.hwTable {
     text-align: justify;
+    font-family: Poppins, sans-serif;
     border-spacing: 0;
     border-collapse: separate;
     border-radius: 10px;
@@ -90,3 +91,9 @@ class hwTable:
             return
         return self.tableStyle + '\n' + table
 
+# hwTable('tests/Example.xlsx').dataHtml(datatypes=
+#                                 {'Money':('money'),
+#                                 'Volume':('integer'),
+#                                 'Percent':('percent', 2),
+#                                 'Float':('decimal', 3)},
+#                                 writePath='./tests/example.html')
