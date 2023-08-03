@@ -1,8 +1,8 @@
-import math
+from math import floor
 
 def round_half_up(x, roundTo=2):
     mutliplier = 10**roundTo 
-    return math.floor(x * mutliplier + 0.5) / mutliplier
+    return floor(x * mutliplier + 0.5) / mutliplier
 
 def formatCol(series, dtype, roundTo=2):
     try:
@@ -17,10 +17,10 @@ def decimal(x, roundTo=2):
     return f'{round_half_up(x, roundTo):,.{roundTo}f}'
 
 def integer(x):
-    return f'{round_half_up(x, roundTo=0):,}'
+    return f'{round_half_up(x, roundTo=0):,.0f}'
 
 def money(x, roundTo=2):
     if x >= 0:
         return f'${round_half_up(x, roundTo):,.{roundTo}f}'
     else:
-        return f'$({round_half_up(x, roundTo):,.{roundTo}f})'
+        return f'$({round_half_up(abs(x), roundTo):,.{roundTo}f})'
