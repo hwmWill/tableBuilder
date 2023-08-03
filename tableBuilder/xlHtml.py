@@ -1,9 +1,15 @@
 import pandas as pd
 
-from dtypes import percent, decimal, integer, money
+from dtypes import percent, decimal, integer, money, formatCol
 
 class hwTable:
-    def __init__(self):
+    def __init__(self, filePath, source=''):
+        self.filePath = filePath
+        self.source = f'Source: {source}'
+        self.dtypes = {'percent':percent,
+                        'decimal':decimal,
+                        'integer':integer,
+                        'money':money}
         self.tableStyle = '''
 <style>
   table.hwTable {
@@ -47,3 +53,42 @@ class hwTable:
   }
 </style>
 '''
+
+    def xlsxHtml(self, datatypes={}, writePath=None):
+        df = pd.read_excel(self.filePath)
+        if len(datatypes) > 0:
+            for col, params in datatypes.items():
+                try:
+                    df[col] = formatCol(df[col], 
+                                        dtype=self.dtypes[params[0]], 
+                                        roundTo=params[1])
+                except:
+                    df[col] = formatCol(df[col], 
+                                        dtype=self.dtypes[params])
+        table = df.to_html(index=False, classes='hwTable', border=0)
+        if self.source != 'Source: ':
+            table = table.replace('</tbody>',
+                          f'''</tbody>
+<tfoot>
+    <tr><td colspan="100%">{self.source}</td></tr>
+</tfoot>
+''')
+        else:
+            table = table.replace('</tbody>',
+                          f'''</tbody>
+<tfoot>
+    <tr><td colspan="100%"></td></tr>
+</tfoot>
+''')
+        if writePath:
+            f = open(writePath, 'w')
+            f.write(self.tableStyle + '\n' + table)
+            f.close()
+            return
+        return self.tableStyle + '\n' + table
+
+# fp = "C:\\Users\\WilliamRobinson\\OneDrive - HW Publishing LLC\\Documents\\TopPurchaseMortgageLendersQ1.xlsx"
+# hwTable(fp).xlsxHtml({'Q1 Volume':('money', 3),
+#                             'Market Share':('percent', 1),
+#                             'Distribution':('percent', 1)},
+#                             writePath='example.html')
