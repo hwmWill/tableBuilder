@@ -1,6 +1,8 @@
 import pandas as pd
-
-from .dtypes import percent, decimal, integer, money, formatCol
+try:
+    from .dtypes import percent, decimal, integer, money, formatCol
+except:
+    from dtypes import percent, decimal, integer, money, formatCol
 
 class hwTable:
     def __init__(self, data, source=''):
@@ -32,7 +34,7 @@ class hwTable:
     padding-bottom: 3px;
     padding-left: 5px;
     padding-right: 5px;
-    word-break: break-all;
+    text-align: start;
   }
   table.hwTable th {
    text-align: center; 
@@ -51,6 +53,13 @@ class hwTable:
     color: white;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+  }
+    table.hwTable a {
+    color: #ee3124;
+    text-decoration: none;
+  }
+  table.hwTable a:hover {
+    color: #a72119;
   }
 </style>
 '''
@@ -91,9 +100,9 @@ class hwTable:
             return
         return self.tableStyle + '\n' + table
 
-# hwTable('tests/Example.xlsx').dataHtml(datatypes=
-#                                 {'Money':('money'),
-#                                 'Volume':('integer'),
-#                                 'Percent':('percent', 2),
-#                                 'Float':('decimal', 3)},
-#                                 writePath='./tests/example.html')
+# df = pd.read_excel('C:/Users/WilliamRobinson/OneDrive - HW Publishing LLC/Documents/Data/Inc5000_Insurers_2023.xlsx')
+# df['Growth (3-yr Avg.)'] = df['Growth (3-yr Avg.)'].mul(100)
+# hwTable(df, source='Inc. 5000 - 2023').dataHtml(datatypes=
+#                                 {'Rank':('integer'),
+#                                 'Growth (3-yr Avg.)':('percent', 0)},
+#                                 writePath='./Inc5000_Insurers.html')
